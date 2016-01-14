@@ -6,10 +6,26 @@ import argparse
 import sys
 
 def main(amount, input_currency, output_currency):
-    data = {}
+    data = {'CZK': [27.0226, u'', 1],
+            'EUR': [1, u'€', 1],
+            'USD': [1.0885, u'$', 1]}
     outputData = {}
     if not output_currency is False:
-        outputData = {output_currency: 1}
+        output_currency =  output_currency.decode('utf-8')
+        if len(output_currency) == 1:
+            for cur in data:
+                if data[cur][1] == output_currency:
+                    outputData[cur] = float(amount) / data[cur][2] * data[cur][0]
+        else:
+            outputData = {output_currency: float(amount) / data[output_currency][2] * data[output_currency][0]
+}
+    else:
+        for cur in data:
+            outputData[cur] = float(amount) / data[cur][2] * data[cur][0]
+
+    for key in outputData:
+        outputData[key] = round(outputData[key], 2)
+
     inputData = {'amount': amount, 'currency': input_currency}
     res = {'input': inputData, 'output': outputData}
     print(json.dumps(res, sort_keys=True, indent=4))
