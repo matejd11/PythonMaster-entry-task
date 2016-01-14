@@ -9,7 +9,6 @@ def main(amount, input_currency, output_currency):
     data = {'CZK': [27.0226, u'', 1],
             'EUR': [1, u'€', 1],
             'USD': [1.0885, u'$', 1]}
-    input_currency =  input_currency.decode('utf-8')
     if len(input_currency) == 1:
         for cur in data:
             if data[cur][1] == output_currency:
@@ -18,7 +17,6 @@ def main(amount, input_currency, output_currency):
         amount_in_EUR = float(amount) / data[input_currency][0] * data[input_currency][2]
     outputData = {}
     if not output_currency is False:
-        output_currency =  output_currency.decode('utf-8')
         if len(output_currency) == 1:
             for cur in data:
                 if data[cur][1] == output_currency:
