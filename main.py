@@ -19,7 +19,8 @@ def main(amount, input_currency, output_currency):
 
     if len(input_currency) == 1:
         for cur in data:
-            if data[cur][1] == output_currency:
+            if data[cur][1] == input_currency:
+                input_currency = cur
                 amount_in_EUR = float(amount) / data[cur][0] * data[cur][2]
     else:
         amount_in_EUR = float(amount) / data[input_currency][0] * data[input_currency][2]
